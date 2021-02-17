@@ -22,62 +22,45 @@ library(rgbif)
 Extract fields of interest:
 
 ```{r get_metadata}
-alienCSI_dataset <- rgbif::datasets(uuid = "feb41318-374b-4ed6-b61e-0369993abedc")$data
+alienCSI_dataset <- rgbif::datasets(uuid = "8a309be4-939e-4874-a6ba-6ebee4ebeaac")$data
 ```
 
 Extract information:
 
 ```{r}
-tibble(
-  `title` = alienCSI_dataset$title,
-  `type` =  alienCSI_dataset$type,
-  `metadata language` = alienCSI_dataset$lang,
-  `data language` = alienCSI_dataset$dataLanguage,
-  `Update frequency` = alienCSI_dataset$maintenanceUpdateFrequency,
-  `Data license` = alienCSI_dataset$license,
-  `Description` = alienCSI_dataset$description,
-  `Geographic Coverage - Description` = alienCSI_dataset$geographicCoverages[1],
-  `Geographic Coverage - BoundBox` = alienCSI_dataset$geographicCoverages[2],
-  `Taxonomic COverage - Description` = alienCSI_dataset$taxonomicCoverages[1],
-  `Taxonomic coverage - Coverage` = alienCSI_dataset$taxonomicCoverages[2],
-  `Temporal coverage - Type` = alienCSI_dataset$temporalCoverages[1],
-  `Keyword Thesaurus` = alienCSI_dataset$keywordCollections$thesaurus,
-  `Keyword List` = alienCSI_dataset$keywordCollections$keywords,
-  `Project Data - Title` = alienCSI_dataset$project$title,
-  `Project Data` = alienCSI_dataset$project$identifier
-  
-  
-  ) %>% transpose()
+metadata <-
+  tibble(
+    `title` = toString(alienCSI_dataset$title),
+    `type` =  toString(alienCSI_dataset$type),
+    `metadata language` = toString(alienCSI_dataset$lang),
+    `data language` = toString(alienCSI_dataset$dataLanguage),
+    `Update frequency` = toString(alienCSI_dataset$maintenanceUpdateFrequency),
+    `Data license` = toString(alienCSI_dataset$license),
+    `Description` = toString(alienCSI_dataset$description),
+    `Geographic Coverage - Description` = toString(alienCSI_dataset$geographicCoverages[1]),
+    `Geographic Coverage - BoundBox` = toString(alienCSI_dataset$geographicCoverages[2]),
+    `Taxonomic COverage` = toString(alienCSI_dataset$taxonomicCoverages),
+    `Temporal coverage - Type` = toString(alienCSI_dataset$temporalCoverages[1]),
+    `Keyword Thesaurus` = toString(alienCSI_dataset$keywordCollections$thesaurus),
+    `Keyword List` = toString(alienCSI_dataset$keywordCollections$keywords),
+    `Project Data - Title` = toString(alienCSI_dataset$project$title),
+    `Project Data - ID` = toString(alienCSI_dataset$project$identifier),
+    `Project Data - Funding` = toString(alienCSI_dataset$project$funding),
+    `Project Data - Abstract` = toString(alienCSI_dataset$project$abstract),
+    `Project Data - Study Area Desc` = toString(alienCSI_dataset$project$studyAreaDescription),
+    `Project Data - Design Desc` = toString(alienCSI_dataset$project$designDescription),
+    `Sampling methods - Study Extent` = toString(alienCSI_dataset$samplingDescription$studyExtent),
+    `Sampling methods - Sampling Description` = toString(alienCSI_dataset$samplingDescription$sampling),
+    `Sampling methods - Quality Control` = toString(alienCSI_dataset$samplingDescription$qualityControl),
+    `Sampling methods - Step description` = toString(alienCSI_dataset$samplingDescription$methodSteps),
+    `Citations - Resource citation` = toString(alienCSI_dataset$citation$text),
+    `Collection data` = toString(alienCSI_dataset$collections),
+    `Additional metadata - Resource logo URL` = toString(alienCSI_dataset$logoUrl),
+    `Additional metadata - Purpose` = toString(alienCSI_dataset$purpose),
+    `Additional metadata - Maintenance description` = toString(alienCSI_dataset$maintenanceDescription)
+    ) %>% transpose()
+metadata
 ```
 
 
-#x	Basic metadata	Resource contacts: $data$contacts --> type = ADMINISTRATIVE_POINT_OF_CONTACT
-#x	Basic metadata	Resource creators: --> type = ORIGINATOR
-#x	Basic metadata	Metadata providers: --> type = METADATA_AUTHOR
-
-x	Project Data	Title: $project$title
-x	Project Data	Identifier: $project$identifier
-x	Project Data	Description: $project$abstract
-x	Project Data	Funding: $project$funding
-x	Project Data	Study area description: $project$studyAreaDescription
-x	Project Data 	Design description:  $project$designDescription
-x	Project Data	Project Personel: $project$contacts
-x	Sampling methods	Study extent: $samplingDescription$studyExtent
-x	Sampling methods	Sampling description: $samplingDescription$sampling
-x	Sampling methods	Quality control: $samplingDescription$qualityControl
-x	Sampling methods	Step description: $samplingDescription$methodSteps
-x	Citations	Resource citation: $citation$text
-x	Citations 	Bibliographic citation: $bibliographicCitations (text)
-x	Collection data	Collection Name: $collections
-x	Colection data	Collection Identifier: $collections
-x	Collection data	Parent collection identifier: $collections
-x	External links	External links: $homepage
-		Other data formats
-	Additional metadata	Date created
-	Additional metadata	Date last published
-x	Additional metadata	Resource logo URL: $logoUrl
-x	Additional metadata	Purpose: $purpose
-x	Additional metadata	Maintenance description: $maintenanceDescription
-	Additional metadata	Additional information
-	Additional metadata	Alternative identifiers
 
